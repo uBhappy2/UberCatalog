@@ -20,6 +20,15 @@
  */
 typedef void (^DictionaryResponseBlock)(NSDictionary *dict, NSError *error);
 
+/**
+ * The callback block for web requests that return a NSData object.
+ *
+ * @param data   Data from the request.
+ * @param error  The error resulting from making the request.
+ */
+typedef void (^DataResponseBlock)(NSData *data, NSError *error);
+
+
 
 @interface UberService : NSObject
 
@@ -28,7 +37,8 @@ typedef void (^DictionaryResponseBlock)(NSDictionary *dict, NSError *error);
 - (void)getUberProductsData:(CLLocation *)location completionHandler:(DictionaryResponseBlock)completionBlock;
 - (NSArray *)parseJsonResponseIntoUberProductsModels:(NSDictionary *)jsonDictionary;
 - (UIImage *)getImage:(NSString *)imageUrl;
-- (void)queryUrlString:(NSString *)imageUrl andProcessImageData:(void (^)(NSData *imageData))processImage;
+- (void)queryUrlString:(NSString *)imageUrl andProcessImageData:(DataResponseBlock)completionBlock;
+- (void)queryUrlString:(NSString *)imageUrl andHandleImageData:(void (^)(NSData *imageData))completionHandler;
 
 
 @end

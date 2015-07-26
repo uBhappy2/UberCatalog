@@ -97,21 +97,51 @@ const NSString * kTimeEndPoint = @"https://api.uber.com/v1/estimates/time";
     return image;
 }
 
-- (void)queryUrlString:(NSString *)imageUrl andProcessImageData:(void (^)(NSData *imageData))processImage
+
+
+- (void)queryUrlString:(NSString *)imageUrl andProcessImageData:(DataResponseBlock)completionBlock
 {
     NSString* encodedUrlString = [imageUrl stringByAddingPercentEscapesUsingEncoding:
                                   NSUTF8StringEncoding];
 
     NSURL *url = [NSURL URLWithString:encodedUrlString];
 
-    dispatch_queue_t download_queue = dispatch_queue_create("download queue", NULL);
-    dispatch_async(download_queue, ^{
-        NSData *imageData = [NSData dataWithContentsOfURL:url];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            processImage(imageData);
-        });
-    });
+    NSURLSession *session = [NSURLSession sharedSession];
+
+    [[session dataTaskWithURL:url
+            completionHandler:^(NSData *data,
+                                NSURLResponse *response,
+                                NSError *error) {
+                // handle response
+
+                if(error) {
+                    //Handle error case
+                    NSLog(@"Error download Uber product image data %@, %@", url, error);
+                    return;
+                }
+                else {
+                    completionBlock(data, error);
+                }
+            }] resume];
     
 }
 
+- (void)queryUrlString:(NSString *)imageUrl andHandleImageData:(void (^)(NSData *imageData))completionHandler
+{
+        NSString* encodedUrlString = [imageUrl stringByAddingPercentEscapesUsingEncoding:
+                                      NSUTF8StringEncoding];
+
+        NSURL *url = [NSURL URLWithString:encodedUrlString];
+
+        dispatch_queue_t download_queue = dispatch_queue_create("download queue", NULL);
+        dispatch_async(download_queue, ^{
+            NSData *imageData = [NSData dataWithContentsOfURL:url];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                completionHandler(imageData);
+            });
+        });
+}
+
+
 @end
+

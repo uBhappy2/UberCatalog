@@ -7,6 +7,7 @@
 //
 
 @import CoreLocation;
+#import "DSActivityView.h"
 #import "UberService.h"
 #import "UberVehicleModel.h"
 #import "UberVehicleTableViewCell.h"
@@ -27,6 +28,10 @@
     [super viewDidLoad];
 
     self.title = @"Uber Catalog";
+
+    DSActivityView *activityView = [DSBezelActivityView newActivityViewForView: self.view withLabel:		@"Loading..." width: 120];
+
+    [activityView setOpaque:YES];
 
     if(self.locationManager == nil) {
         self.locationManager = [[CLLocationManager alloc] init];
@@ -91,7 +96,7 @@
         UberVehicleModel *model = [self.uberVehiclesData objectAtIndex:indexPath.row];
 
         if(model) {
-            [cell renderCellWithModel:model];
+            [cell renderCellWithModelOption2:model];
         }
     }
 
@@ -125,11 +130,15 @@
 
                 if(dict) {
                     self.uberVehiclesData = [[self _uberService] parseJsonResponseIntoUberProductsModels:dict];
-                    [self.tableView reloadData];
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [self.tableView reloadData];
+                        [DSBezelActivityView removeViewAnimated:YES];
+                    });
                 }
             }];
         }
     }
+
 }
 
 

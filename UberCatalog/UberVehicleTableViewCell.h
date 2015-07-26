@@ -15,6 +15,7 @@
 @property (nonatomic, weak) IBOutlet UILabel *maxCapacityValueLabel;
 @property (nonatomic, weak) IBOutlet UILabel *currentETAValueLabel;
 
-- (void)renderCellWithModel:(UberVehicleModel *)model;
+- (void)renderCellWithModelOption1:(UberVehicleModel *)model;
+- (void)renderCellWithModelOption2:(UberVehicleModel *)model;
 
 @end

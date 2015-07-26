@@ -23,10 +23,42 @@
 }
 
 
-- (void)renderCellWithModel:(UberVehicleModel *)model
+- (void)renderCellWithModelOption1:(UberVehicleModel *)model
 {
     self.maxCapacityValueLabel.text = [NSString stringWithFormat:@"%ld",model.maxCapacity];
     self.vehicleTypeValueLabel.text = model.vehicleType;
-    self.vehicleImageView.image = [[UberService sharedInstance] getImage:model.vehicleImageUrl];
+
+    [[UberService sharedInstance] queryUrlString:model.vehicleImageUrl
+                             andProcessImageData:^(NSData *imageData, NSError *error) {
+                                 if(error) {
+                                     //Handle error
+                                     NSLog(@"Error while downloading image data %@", error);
+                                     return;
+                                 }
+
+                                 if(imageData) {
+                                     self.vehicleImageView.image = [UIImage imageWithData:imageData];
+                                 }
+
+                             }];
+
 }
+
+- (void)renderCellWithModelOption2:(UberVehicleModel *)model
+{
+    self.maxCapacityValueLabel.text = [NSString stringWithFormat:@"%ld",model.maxCapacity];
+    self.vehicleTypeValueLabel.text = model.vehicleType;
+
+    [[UberService sharedInstance] queryUrlString:model.vehicleImageUrl
+                             andHandleImageData:^(NSData *imageData) {
+
+                                 if(imageData) {
+                                     self.vehicleImageView.image = [UIImage imageWithData:imageData];
+                                 }
+                                 
+                             }];
+}
+
+
+
 @end

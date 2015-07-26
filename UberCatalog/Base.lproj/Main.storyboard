@@ -77,12 +77,12 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="O1P-N4-m1p">
-                                            <rect key="frame" x="39" y="0.0" width="243" height="242"/>
+                                            <rect key="frame" x="50" y="37" width="220" height="188"/>
                                         </imageView>
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="BfE-R3-5dB" firstAttribute="leading" secondItem="crx-1J-tma" secondAttribute="leading" id="Clk-DZ-9y1"/>
-                                        <constraint firstItem="Woa-Zb-oWC" firstAttribute="top" secondItem="O1P-N4-m1p" secondAttribute="bottom" constant="34" id="GU2-Rv-eHz"/>
+                                        <constraint firstItem="Woa-Zb-oWC" firstAttribute="top" secondItem="O1P-N4-m1p" secondAttribute="bottom" constant="51" id="GU2-Rv-eHz"/>
                                         <constraint firstItem="dJk-CX-p14" firstAttribute="top" secondItem="BfE-R3-5dB" secondAttribute="bottom" constant="24" id="GjU-2l-uu6"/>
                                         <constraint firstItem="Woa-Zb-oWC" firstAttribute="leading" secondItem="crx-1J-tma" secondAttribute="trailing" constant="91" id="LfW-3M-bxb"/>
                                         <constraint firstItem="FpJ-LN-Snh" firstAttribute="trailing" secondItem="jBj-zH-Vjh" secondAttribute="trailing" id="OEM-cp-bIc"/>
@@ -95,10 +95,10 @@
                                         <constraint firstAttribute="bottom" secondItem="BfE-R3-5dB" secondAttribute="bottom" constant="158" id="b0m-0B-NZP"/>
                                         <constraint firstItem="BfE-R3-5dB" firstAttribute="leading" secondItem="dJk-CX-p14" secondAttribute="leading" id="bjC-J1-nDN"/>
                                         <constraint firstItem="BfE-R3-5dB" firstAttribute="baseline" secondItem="FpJ-LN-Snh" secondAttribute="baseline" id="fHZ-JH-Gfz"/>
-                                        <constraint firstItem="O1P-N4-m1p" firstAttribute="top" secondItem="jJS-eE-Gf5" secondAttribute="topMargin" constant="-8" id="frC-jn-pE4"/>
-                                        <constraint firstItem="crx-1J-tma" firstAttribute="top" secondItem="O1P-N4-m1p" secondAttribute="bottom" constant="34" id="si9-pS-Vaz"/>
-                                        <constraint firstAttribute="centerY" secondItem="O1P-N4-m1p" secondAttribute="centerY" constant="128.5" id="v9e-en-UWZ"/>
-                                        <constraint firstItem="O1P-N4-m1p" firstAttribute="leading" secondItem="jJS-eE-Gf5" secondAttribute="leadingMargin" constant="31" id="vl9-r6-Rkx"/>
+                                        <constraint firstItem="O1P-N4-m1p" firstAttribute="top" secondItem="jJS-eE-Gf5" secondAttribute="topMargin" constant="29" id="frC-jn-pE4"/>
+                                        <constraint firstItem="crx-1J-tma" firstAttribute="top" secondItem="O1P-N4-m1p" secondAttribute="bottom" constant="51" id="si9-pS-Vaz"/>
+                                        <constraint firstAttribute="centerY" secondItem="O1P-N4-m1p" secondAttribute="centerY" constant="118.5" id="v9e-en-UWZ"/>
+                                        <constraint firstItem="O1P-N4-m1p" firstAttribute="leading" secondItem="jJS-eE-Gf5" secondAttribute="leadingMargin" constant="42" id="vl9-r6-Rkx"/>
                                         <constraint firstItem="jBj-zH-Vjh" firstAttribute="leading" secondItem="dJk-CX-p14" secondAttribute="trailing" constant="31" id="xZ7-kC-70N"/>
                                     </constraints>
                                 </tableViewCellContentView>

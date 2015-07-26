@@ -21,6 +21,7 @@
 		E4E6D95E1B63A91A002E4B9D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4E6D95D1B63A91A002E4B9D /* Foundation.framework */; };
 		E4E6D95F1B63A922002E4B9D /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4E6D9591B63A06B002E4B9D /* CoreLocation.framework */; };
 		E4E6D9611B64E1A6002E4B9D /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4E6D9601B64E1A6002E4B9D /* MapKit.framework */; };
+		E4E6D9691B65882B002E4B9D /* DSActivityView.m in Sources */ = {isa = PBXBuildFile; fileRef = E4E6D9681B65882B002E4B9D /* DSActivityView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +58,8 @@
 		E4E6D95B1B63A90E002E4B9D /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		E4E6D95D1B63A91A002E4B9D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		E4E6D9601B64E1A6002E4B9D /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		E4E6D9671B65882B002E4B9D /* DSActivityView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DSActivityView.h; sourceTree = "<group>"; };
+		E4E6D9681B65882B002E4B9D /* DSActivityView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DSActivityView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,10 +87,7 @@
 		E4B92DBC1B628341004F8285 = {
 			isa = PBXGroup;
 			children = (
-				E4E6D9601B64E1A6002E4B9D /* MapKit.framework */,
-				E4E6D95D1B63A91A002E4B9D /* Foundation.framework */,
-				E4E6D95B1B63A90E002E4B9D /* UIKit.framework */,
-				E4E6D9591B63A06B002E4B9D /* CoreLocation.framework */,
+				E4E6D9621B658714002E4B9D /* Frameworks */,
 				E4B92DC71B628341004F8285 /* UberCatalog */,
 				E4B92DE11B628341004F8285 /* UberCatalogTests */,
 				E4B92DC61B628341004F8285 /* Products */,
@@ -106,16 +106,11 @@
 		E4B92DC71B628341004F8285 /* UberCatalog */ = {
 			isa = PBXGroup;
 			children = (
+				E4E6D9651B658774002E4B9D /* Service */,
+				E4E6D9641B658761002E4B9D /* Model */,
+				E4E6D9631B658735002E4B9D /* UI */,
 				E4B92DCC1B628341004F8285 /* AppDelegate.h */,
 				E4B92DCD1B628341004F8285 /* AppDelegate.m */,
-				E4B92DCF1B628341004F8285 /* UberVehiclesViewController.h */,
-				E4B92DD01B628341004F8285 /* UberVehiclesViewController.m */,
-				E4B92DEE1B62884A004F8285 /* UberVehicleTableViewCell.h */,
-				E4B92DEF1B62884A004F8285 /* UberVehicleTableViewCell.m */,
-				E4B92DF71B629789004F8285 /* UberVehicleModel.h */,
-				E4B92DF81B629789004F8285 /* UberVehicleModel.m */,
-				E4B92DF41B62911A004F8285 /* UberService.h */,
-				E4B92DF51B62911A004F8285 /* UberService.m */,
 				E4B92DD21B628341004F8285 /* Main.storyboard */,
 				E4B92DD51B628341004F8285 /* Images.xcassets */,
 				E4B92DD71B628341004F8285 /* LaunchScreen.xib */,
@@ -148,6 +143,56 @@
 				E4B92DE31B628341004F8285 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		E4E6D9621B658714002E4B9D /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				E4E6D9601B64E1A6002E4B9D /* MapKit.framework */,
+				E4E6D95D1B63A91A002E4B9D /* Foundation.framework */,
+				E4E6D95B1B63A90E002E4B9D /* UIKit.framework */,
+				E4E6D9591B63A06B002E4B9D /* CoreLocation.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		E4E6D9631B658735002E4B9D /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				E4E6D9661B658814002E4B9D /* Activity View */,
+				E4B92DCF1B628341004F8285 /* UberVehiclesViewController.h */,
+				E4B92DD01B628341004F8285 /* UberVehiclesViewController.m */,
+				E4B92DEE1B62884A004F8285 /* UberVehicleTableViewCell.h */,
+				E4B92DEF1B62884A004F8285 /* UberVehicleTableViewCell.m */,
+			);
+			name = UI;
+			sourceTree = "<group>";
+		};
+		E4E6D9641B658761002E4B9D /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				E4B92DF71B629789004F8285 /* UberVehicleModel.h */,
+				E4B92DF81B629789004F8285 /* UberVehicleModel.m */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		E4E6D9651B658774002E4B9D /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				E4B92DF41B62911A004F8285 /* UberService.h */,
+				E4B92DF51B62911A004F8285 /* UberService.m */,
+			);
+			name = Service;
+			sourceTree = "<group>";
+		};
+		E4E6D9661B658814002E4B9D /* Activity View */ = {
+			isa = PBXGroup;
+			children = (
+				E4E6D9671B65882B002E4B9D /* DSActivityView.h */,
+				E4E6D9681B65882B002E4B9D /* DSActivityView.m */,
+			);
+			name = "Activity View";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -256,6 +301,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E4B92DD11B628341004F8285 /* UberVehiclesViewController.m in Sources */,
+				E4E6D9691B65882B002E4B9D /* DSActivityView.m in Sources */,
 				E4B92DF61B62911A004F8285 /* UberService.m in Sources */,
 				E4B92DCE1B628341004F8285 /* AppDelegate.m in Sources */,
 				E4B92DF01B62884A004F8285 /* UberVehicleTableViewCell.m in Sources */,

@@ -6,6 +6,8 @@
 //  Copyright (c) 2015 Rao, Amit. All rights reserved.
 //
 
+#import "UberService.h"
+#import "UberVehicleModel.h"
 #import "UberVehicleTableViewCell.h"
 
 @implementation UberVehicleTableViewCell
@@ -20,4 +22,11 @@
     // Configure the view for the selected state
 }
 
+
+- (void)renderCellWithModel:(UberVehicleModel *)model
+{
+    self.maxCapacityValueLabel.text = [NSString stringWithFormat:@"%ld",model.maxCapacity];
+    self.vehicleTypeValueLabel.text = model.vehicleType;
+    self.vehicleImageView.image = [[UberService sharedInstance] getImage:model.vehicleImageUrl];
+}
 @end

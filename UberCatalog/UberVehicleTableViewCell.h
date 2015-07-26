@@ -10,9 +10,11 @@
 
 @interface UberVehicleTableViewCell : UITableViewCell
 
-@property (nonatomic, weak) IBOutlet UIImageView *vehicleImageView;
+@property (nonatomic, retain) IBOutlet UIImageView *vehicleImageView;
 @property (nonatomic, weak) IBOutlet UILabel *vehicleTypeValueLabel;
 @property (nonatomic, weak) IBOutlet UILabel *maxCapacityValueLabel;
 @property (nonatomic, weak) IBOutlet UILabel *currentETAValueLabel;
+
+- (void)renderCellWithModel:(UberVehicleModel *)model;
 
 @end

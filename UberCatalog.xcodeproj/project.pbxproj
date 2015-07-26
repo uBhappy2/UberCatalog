@@ -17,6 +17,10 @@
 		E4B92DF01B62884A004F8285 /* UberVehicleTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E4B92DEF1B62884A004F8285 /* UberVehicleTableViewCell.m */; };
 		E4B92DF61B62911A004F8285 /* UberService.m in Sources */ = {isa = PBXBuildFile; fileRef = E4B92DF51B62911A004F8285 /* UberService.m */; };
 		E4B92DF91B629789004F8285 /* UberVehicleModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E4B92DF81B629789004F8285 /* UberVehicleModel.m */; };
+		E4E6D95C1B63A90E002E4B9D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4E6D95B1B63A90E002E4B9D /* UIKit.framework */; };
+		E4E6D95E1B63A91A002E4B9D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4E6D95D1B63A91A002E4B9D /* Foundation.framework */; };
+		E4E6D95F1B63A922002E4B9D /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4E6D9591B63A06B002E4B9D /* CoreLocation.framework */; };
+		E4E6D9611B64E1A6002E4B9D /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4E6D9601B64E1A6002E4B9D /* MapKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +53,10 @@
 		E4B92DF51B62911A004F8285 /* UberService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UberService.m; sourceTree = "<group>"; };
 		E4B92DF71B629789004F8285 /* UberVehicleModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UberVehicleModel.h; sourceTree = "<group>"; };
 		E4B92DF81B629789004F8285 /* UberVehicleModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UberVehicleModel.m; sourceTree = "<group>"; };
+		E4E6D9591B63A06B002E4B9D /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		E4E6D95B1B63A90E002E4B9D /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		E4E6D95D1B63A91A002E4B9D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		E4E6D9601B64E1A6002E4B9D /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +64,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E4E6D95F1B63A922002E4B9D /* CoreLocation.framework in Frameworks */,
+				E4E6D95E1B63A91A002E4B9D /* Foundation.framework in Frameworks */,
+				E4E6D9611B64E1A6002E4B9D /* MapKit.framework in Frameworks */,
+				E4E6D95C1B63A90E002E4B9D /* UIKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -72,6 +84,10 @@
 		E4B92DBC1B628341004F8285 = {
 			isa = PBXGroup;
 			children = (
+				E4E6D9601B64E1A6002E4B9D /* MapKit.framework */,
+				E4E6D95D1B63A91A002E4B9D /* Foundation.framework */,
+				E4E6D95B1B63A90E002E4B9D /* UIKit.framework */,
+				E4E6D9591B63A06B002E4B9D /* CoreLocation.framework */,
 				E4B92DC71B628341004F8285 /* UberCatalog */,
 				E4B92DE11B628341004F8285 /* UberCatalogTests */,
 				E4B92DC61B628341004F8285 /* Products */,
@@ -183,6 +199,11 @@
 				TargetAttributes = {
 					E4B92DC41B628341004F8285 = {
 						CreatedOnToolsVersion = 6.4;
+						SystemCapabilities = {
+							com.apple.Maps.iOS = {
+								enabled = 1;
+							};
+						};
 					};
 					E4B92DDD1B628341004F8285 = {
 						CreatedOnToolsVersion = 6.4;
@@ -365,7 +386,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = UberCatalog/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -375,7 +398,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = UberCatalog/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};

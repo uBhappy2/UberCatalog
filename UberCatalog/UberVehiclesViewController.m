@@ -43,8 +43,8 @@
         [self.locationManager requestWhenInUseAuthorization];
     }
 
-    self.locationManager.distanceFilter = kCLDistanceFilterNone; // whenever we move
-    self.locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters; // 100 m
+    self.locationManager.distanceFilter = 100.0; // 100 m
+    self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
     [self.locationManager startUpdatingLocation];
 
     self.uberVehiclesData = [NSDictionary dictionary];
@@ -107,60 +107,68 @@
 #pragma mark - CLLocationManagerDelegate methods
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
 {
-    NSLog(@"%@", [locations lastObject]);
+    DSActivityView *activityView = [DSBezelActivityView newActivityViewForView: self.view withLabel:		@"Updating..." width: 120];
 
+    [activityView setOpaque:YES];
 
-    [self.tableView reloadData];
+    [self _updateUberProductsAndETAHelper];
+
+    [DSBezelActivityView removeViewAnimated:YES];
 
 }
+
+
 
 - (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status
 {
     if(status == kCLAuthorizationStatusAuthorizedWhenInUse ||
        status == kCLAuthorizationStatusAuthorizedAlways)
     {
-        self.currentLocation = self.locationManager.location;
-
-        if(self.currentLocation) {
-            [[self _uberService] getUberProductsData:self.currentLocation completionHandler:^(NSDictionary * dict, NSError *error) {
-                if(error) {
-                    //Handle Error
-                    NSLog(@"Error while parsing products json response %@", error);
-                    return;
-                }
-
-                if(dict) {
-                    self.uberVehiclesData = [[self _uberService] parseJsonResponseIntoUberProductsModels:dict];
-
-
-                    [[self _uberService] getCurrentETA:self.currentLocation completionHandler:^(NSDictionary * dict, NSError *error) {
-                        if(error) {
-                            //Handle Error
-                            NSLog(@"Error while parsing ETA json response %@", error);
-                            return;
-                        }
-
-                        if(dict) {
-                            [[self _uberService] updateUberProductsModels:self.uberVehiclesData withETADictionary:dict];
-                        }
-
-                        dispatch_async(dispatch_get_main_queue(), ^{
-                            [self.tableView reloadData];
-                            [DSBezelActivityView removeViewAnimated:YES];
-                        });
-
-                    }];
-                }
-            }];
-        }
+        [self _updateUberProductsAndETAHelper];
     }
-    else {
-        dispatch_async(dispatch_get_main_queue(), ^{
+
+    dispatch_async(dispatch_get_main_queue(), ^{
             [DSBezelActivityView removeViewAnimated:YES];
-        });
-    }
+    });
+
 
 }
 
 
+- (void)_updateUberProductsAndETAHelper
+{
+    self.currentLocation = self.locationManager.location;
+
+    if(self.currentLocation) {
+        [[self _uberService] getUberProductsData:self.currentLocation completionHandler:^(NSDictionary * dict, NSError *error) {
+            if(error) {
+                //Handle Error
+                NSLog(@"Error while parsing products json response %@", error);
+                return;
+            }
+
+            if(dict) {
+                self.uberVehiclesData = [[self _uberService] parseJsonResponseIntoUberProductsModels:dict];
+
+
+                [[self _uberService] getCurrentETA:self.currentLocation completionHandler:^(NSDictionary * dict, NSError *error) {
+                    if(error) {
+                        //Handle Error
+                        NSLog(@"Error while parsing ETA json response %@", error);
+                        return;
+                    }
+
+                    if(dict) {
+                        [[self _uberService] updateUberProductsModels:self.uberVehiclesData withETADictionary:dict];
+                    }
+
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [self.tableView reloadData];
+                    });
+
+                }];
+            }
+        }];
+    }
+}
 @end

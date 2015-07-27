@@ -103,41 +103,34 @@
 #pragma mark - CLLocationManagerDelegate methods
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
 {
-    DSActivityView *activityView = [DSBezelActivityView newActivityViewForView: self.view withLabel:		@"Updating..." width: 120];
-
-    [activityView setOpaque:YES];
-
     [self _updateUberProductsAndETAHelper];
-
-    [DSBezelActivityView removeViewAnimated:YES];
-
 }
 
 
 
 - (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status
 {
-    DSActivityView *activityView = [DSBezelActivityView newActivityViewForView: self.view withLabel:		@"Loading..." width: 120];
-
-    [activityView setOpaque:YES];
-
     if(status == kCLAuthorizationStatusAuthorizedWhenInUse ||
        status == kCLAuthorizationStatusAuthorizedAlways)
     {
         [self _updateUberProductsAndETAHelper];
     }
-
-    [DSBezelActivityView removeViewAnimated:YES];
 }
 
 
 - (void)_updateUberProductsAndETAHelper
 {
+
     self.currentLocation = self.locationManager.location;
 
     __weak typeof(self) weakSelf = self;
 
     if(self.currentLocation) {
+
+        DSActivityView *activityView = [DSBezelActivityView newActivityViewForView: self.view withLabel:		@"Updating..." width: 120];
+
+        [activityView setOpaque:YES];
+
         [[self _uberService] getUberProductsData:self.currentLocation completionHandler:^(NSDictionary * dict, NSError *error) {
             if(error) {
                 //Handle Error
@@ -162,6 +155,7 @@
 
                     dispatch_async(dispatch_get_main_queue(), ^{
                         [self.tableView reloadData];
+                        [DSBezelActivityView removeViewAnimated:YES];
                     });
 
                 }];

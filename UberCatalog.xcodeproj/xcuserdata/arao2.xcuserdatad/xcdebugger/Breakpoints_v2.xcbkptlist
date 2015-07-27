@@ -118,16 +118,32 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "No"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "UberCatalog/UberVehiclesViewController.m"
-            timestampString = "459673275.829441"
+            filePath = "UberCatalog/UberService.m"
+            timestampString = "459687249.513295"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "112"
-            endingLineNumber = "112"
-            landmarkName = "-locationManager:didChangeAuthorizationStatus:"
+            startingLineNumber = "53"
+            endingLineNumber = "53"
+            landmarkName = "-_makeHttpRequest:completionHandler:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "UberCatalog/UberService.m"
+            timestampString = "459687298.134204"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "153"
+            endingLineNumber = "153"
+            landmarkName = "-queryUrlString:andHandleImageData:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

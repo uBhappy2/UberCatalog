@@ -103,6 +103,10 @@
 #pragma mark - CLLocationManagerDelegate methods
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
 {
+    DSActivityView *activityView = [DSBezelActivityView newActivityViewForView: self.view withLabel:		@"Updating..." width: 120];
+
+    [activityView setOpaque:YES];
+    
     [self _updateUberProductsAndETAHelper];
 }
 
@@ -127,9 +131,6 @@
 
     if(self.currentLocation) {
 
-        DSActivityView *activityView = [DSBezelActivityView newActivityViewForView: self.view withLabel:		@"Updating..." width: 120];
-
-        [activityView setOpaque:YES];
 
         [[self _uberService] getUberProductsData:self.currentLocation completionHandler:^(NSDictionary * dict, NSError *error) {
             if(error) {

@@ -29,10 +29,6 @@
 
     self.title = @"Uber Catalog";
 
-    DSActivityView *activityView = [DSBezelActivityView newActivityViewForView: self.view withLabel:		@"Loading..." width: 120];
-
-    [activityView setOpaque:YES];
-
     if(self.locationManager == nil) {
         self.locationManager = [[CLLocationManager alloc] init];
         self.locationManager.delegate = self;
@@ -121,17 +117,17 @@
 
 - (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status
 {
+    DSActivityView *activityView = [DSBezelActivityView newActivityViewForView: self.view withLabel:		@"Loading..." width: 120];
+
+    [activityView setOpaque:YES];
+
     if(status == kCLAuthorizationStatusAuthorizedWhenInUse ||
        status == kCLAuthorizationStatusAuthorizedAlways)
     {
         [self _updateUberProductsAndETAHelper];
     }
 
-    dispatch_async(dispatch_get_main_queue(), ^{
-            [DSBezelActivityView removeViewAnimated:YES];
-    });
-
-
+    [DSBezelActivityView removeViewAnimated:YES];
 }
 
 

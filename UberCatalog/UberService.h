@@ -10,6 +10,7 @@
 @import Foundation;
 @import UIKit;
 
+#define DEBUG 1
 
 /**
  * The callback block for web requests that return a NSDictionary.
@@ -35,10 +36,12 @@ typedef void (^DataResponseBlock)(NSData *data, NSError *error);
 + (instancetype)sharedInstance;
 
 - (void)getUberProductsData:(CLLocation *)location completionHandler:(DictionaryResponseBlock)completionBlock;
-- (NSArray *)parseJsonResponseIntoUberProductsModels:(NSDictionary *)jsonDictionary;
+- (NSDictionary *)parseJsonResponseIntoUberProductsModels:(NSDictionary *)jsonDictionary;
 - (UIImage *)getImage:(NSString *)imageUrl;
 - (void)queryUrlString:(NSString *)imageUrl andProcessImageData:(DataResponseBlock)completionBlock;
 - (void)queryUrlString:(NSString *)imageUrl andHandleImageData:(void (^)(NSData *imageData))completionHandler;
-
+- (void)getCurrentETA:(CLLocation *)location completionHandler:(DictionaryResponseBlock)completionBlock;
+- (void)updateUberProductsModels:(NSDictionary *)uberProductDictionary
+               withETADictionary:(NSDictionary *)jsonDictionary;
 
 @end

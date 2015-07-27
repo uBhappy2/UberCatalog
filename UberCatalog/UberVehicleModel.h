@@ -11,9 +11,10 @@
 
 @interface UberVehicleModel : NSObject
 
+@property (nonatomic, strong) NSString *productId;
 @property (nonatomic, strong) NSString *vehicleImageUrl;
 @property (nonatomic, strong) NSString *vehicleType;
 @property (nonatomic, assign) NSInteger maxCapacity;
-@property (nonatomic, assign) NSInteger etaInMins;
+@property (nonatomic, assign) NSInteger etaInSeconds;
 
 @end

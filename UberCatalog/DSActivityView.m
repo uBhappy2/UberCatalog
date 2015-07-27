@@ -88,13 +88,13 @@ static DSActivityView *dsActivityView = nil;
 
 + (DSActivityView *)newActivityViewForView:(UIView *)addToView;
 {
-    return [self newActivityViewForView:addToView withLabel:IntuitLocalizedString(@"Loading...", @"Default DSActivtyView label text") width:0];
+    return [self newActivityViewForView:addToView withLabel:@"Loading..." width:0];
 }
 
 //**BEGIN_MINT_MOD**
 + (DSActivityView *)newPrivateActivityViewForView: (UIView *) addToView;
 {
-	return [self newPrivateActivityViewForView: addToView withLabel: IntuitLocalizedString(@"Loading...", @"Default DSActivtyView label text") width: 0];
+	return [self newPrivateActivityViewForView: addToView withLabel: @"Loading..." width: 0];
 }
 //**END_MINT_MOD**
 
@@ -907,7 +907,7 @@ static NSString *kActivityViewKey=@"__ActivityView__";
 
 + (DSKeyboardActivityView *)newActivityView;
 {
-    return [self newActivityViewWithLabel:IntuitLocalizedString(@"Loading...", @"Default DSActivtyView label text")];
+    return [self newActivityViewWithLabel:@"Loading..."];
 }
 
 /*

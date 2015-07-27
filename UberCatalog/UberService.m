@@ -26,11 +26,10 @@ const NSString * kTimeEndPoint = @"https://api.uber.com/v1/estimates/time";
     return _sharedInstance;
 }
 
-- (void)getUberProductsData:(CLLocation *)location completionHandler:(DictionaryResponseBlock)completionBlock
-{
-    NSString *urlString = [NSString stringWithFormat:@"%@?latitude=%f&longitude=%f&server_token=%@",
-                           kProductEndPoint, location.coordinate.latitude, location.coordinate.longitude, kServiceToken];
 
+- (void)_makeHttpRequest:(NSString *)urlString
+       completionHandler:(DictionaryResponseBlock)completionBlock
+{
     NSString* encodedUrlString = [urlString stringByAddingPercentEscapesUsingEncoding:
                                   NSUTF8StringEncoding];
 
@@ -46,7 +45,7 @@ const NSString * kTimeEndPoint = @"https://api.uber.com/v1/estimates/time";
 
                 if(error) {
                     //Handle error case
-                    NSLog(@"Error download Uber products data %@, %@", url, error);
+                    NSLog(@"Error downloading Uber products data %@, %@", url, error);
                     return;
                 }
                 else {
@@ -55,18 +54,31 @@ const NSString * kTimeEndPoint = @"https://api.uber.com/v1/estimates/time";
                                                                          options:kNilOptions
                                                                            error:&error];
 
+#if DEBUG
+                    NSLog(@"URL = %@", urlString);
+                    NSLog(@"JSON Response = %@", [json description]);
+#endif
 
                     completionBlock(json, error);
-
+                    
                 }
             }] resume];
+}
+
+
+- (void)getUberProductsData:(CLLocation *)location completionHandler:(DictionaryResponseBlock)completionBlock
+{
+    NSString *urlString = [NSString stringWithFormat:@"%@?latitude=%f&longitude=%f&server_token=%@",
+                           kProductEndPoint, location.coordinate.latitude, location.coordinate.longitude, kServiceToken];
+
+    [self _makeHttpRequest:urlString completionHandler:completionBlock];
 
 }
 
 
-- (NSArray *)parseJsonResponseIntoUberProductsModels:(NSDictionary *)jsonDictionary
+- (NSDictionary *)parseJsonResponseIntoUberProductsModels:(NSDictionary *)jsonDictionary
 {
-    NSMutableArray *vehicleModelsList = [NSMutableArray array];
+    NSMutableDictionary *vehicleModelsDict = [NSMutableDictionary dictionary];
 
     NSArray *productsList = jsonDictionary[@"products"];
 
@@ -76,11 +88,14 @@ const NSString * kTimeEndPoint = @"https://api.uber.com/v1/estimates/time";
         model.vehicleImageUrl = productDict[@"image"];
         model.vehicleType = productDict[@"display_name"];
         model.maxCapacity = [productDict[@"capacity"] integerValue];
+        model.productId = productDict[@"product_id"];
 
-        [vehicleModelsList addObject:model];
+        if( model && model.productId) {
+            [vehicleModelsDict setObject:model forKey:model.productId];
+        }
     }
 
-    return vehicleModelsList;
+    return vehicleModelsDict;
 }
 
 - (UIImage *)getImage:(NSString *)imageUrl
@@ -141,6 +156,34 @@ const NSString * kTimeEndPoint = @"https://api.uber.com/v1/estimates/time";
             });
         });
 }
+
+
+//API methods to request ETA
+- (void)getCurrentETA:(CLLocation *)location completionHandler:(DictionaryResponseBlock)completionBlock
+{
+    NSString *urlString = [NSString stringWithFormat:@"%@?start_latitude=%f&start_longitude=%f&server_token=%@",
+                           kTimeEndPoint, location.coordinate.latitude, location.coordinate.longitude, kServiceToken];
+
+    [self _makeHttpRequest:urlString completionHandler:completionBlock];
+
+}
+
+- (void)updateUberProductsModels:(NSDictionary *)uberProductDictionary
+               withETADictionary:(NSDictionary *)jsonDictionary
+{
+    NSArray *timesObjects = jsonDictionary[@"times"];
+
+    for(NSDictionary *dict in timesObjects)
+    {
+        NSString *productId = dict[@"product_id"];
+        if(productId) {
+            UberVehicleModel *model = [uberProductDictionary objectForKey:productId];
+            model.etaInSeconds = [dict[@"estimate"] integerValue];
+        }
+
+    }
+}
+
 
 
 @end

@@ -18,7 +18,7 @@
 
 @property (nonatomic, strong) CLLocationManager *locationManager;
 @property (nonatomic, strong) CLLocation *currentLocation;
-@property (nonatomic, strong) NSArray *uberVehiclesData;
+@property (nonatomic, retain) NSDictionary *uberVehiclesData; //dictionary with <key, value> = <product_id, model>
 
 @end
 
@@ -47,7 +47,7 @@
     self.locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters; // 100 m
     [self.locationManager startUpdatingLocation];
 
-    self.uberVehiclesData = [NSArray array];
+    self.uberVehiclesData = [NSDictionary dictionary];
 }
 
 - (UberService *)_uberService
@@ -93,7 +93,7 @@
 
 
     if(self.uberVehiclesData.count > 0) {
-        UberVehicleModel *model = [self.uberVehiclesData objectAtIndex:indexPath.row];
+        UberVehicleModel *model = [[self.uberVehiclesData allValues] objectAtIndex:indexPath.row];
 
         if(model) {
             [cell renderCellWithModelOption2:model];
@@ -124,16 +124,31 @@
             [[self _uberService] getUberProductsData:self.currentLocation completionHandler:^(NSDictionary * dict, NSError *error) {
                 if(error) {
                     //Handle Error
-                    NSLog(@"Error while parsing json response %@", error);
+                    NSLog(@"Error while parsing products json response %@", error);
                     return;
                 }
 
                 if(dict) {
                     self.uberVehiclesData = [[self _uberService] parseJsonResponseIntoUberProductsModels:dict];
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        [self.tableView reloadData];
-                        [DSBezelActivityView removeViewAnimated:YES];
-                    });
+
+
+                    [[self _uberService] getCurrentETA:self.currentLocation completionHandler:^(NSDictionary * dict, NSError *error) {
+                        if(error) {
+                            //Handle Error
+                            NSLog(@"Error while parsing ETA json response %@", error);
+                            return;
+                        }
+
+                        if(dict) {
+                            [[self _uberService] updateUberProductsModels:self.uberVehiclesData withETADictionary:dict];
+                        }
+
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            [self.tableView reloadData];
+                            [DSBezelActivityView removeViewAnimated:YES];
+                        });
+
+                    }];
                 }
             }];
         }

@@ -116,7 +116,8 @@
 
 - (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status
 {
-    if(status == kCLAuthorizationStatusAuthorizedWhenInUse)
+    if(status == kCLAuthorizationStatusAuthorizedWhenInUse ||
+       status == kCLAuthorizationStatusAuthorizedAlways)
     {
         self.currentLocation = self.locationManager.location;
 
@@ -152,6 +153,11 @@
                 }
             }];
         }
+    }
+    else {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [DSBezelActivityView removeViewAnimated:YES];
+        });
     }
 
 }

@@ -25,7 +25,7 @@
 
 - (void)_setVehicleModelProperties:(UberVehicleModel *)model
 {
-    self.maxCapacityValueLabel.text = [NSString stringWithFormat:@"%ld",model.maxCapacity];
+    self.maxCapacityValueLabel.text = [NSString stringWithFormat:@"%ld",(long)model.maxCapacity];
     self.vehicleTypeValueLabel.text = model.vehicleType;
     if(model.etaInSeconds) {
         self.currentETAValueLabel.text = [NSString stringWithFormat:@"%.2f", model.etaInSeconds/60.0];

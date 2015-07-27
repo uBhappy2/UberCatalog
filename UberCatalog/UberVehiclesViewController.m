@@ -139,6 +139,8 @@
 {
     self.currentLocation = self.locationManager.location;
 
+    __weak typeof(self) weakSelf = self;
+
     if(self.currentLocation) {
         [[self _uberService] getUberProductsData:self.currentLocation completionHandler:^(NSDictionary * dict, NSError *error) {
             if(error) {
@@ -148,7 +150,7 @@
             }
 
             if(dict) {
-                self.uberVehiclesData = [[self _uberService] parseJsonResponseIntoUberProductsModels:dict];
+                weakSelf.uberVehiclesData = [[self _uberService] parseJsonResponseIntoUberProductsModels:dict];
 
 
                 [[self _uberService] getCurrentETA:self.currentLocation completionHandler:^(NSDictionary * dict, NSError *error) {
@@ -159,7 +161,7 @@
                     }
 
                     if(dict) {
-                        [[self _uberService] updateUberProductsModels:self.uberVehiclesData withETADictionary:dict];
+                        [[self _uberService] updateUberProductsModels:weakSelf.uberVehiclesData withETADictionary:dict];
                     }
 
                     dispatch_async(dispatch_get_main_queue(), ^{
